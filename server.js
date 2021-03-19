@@ -5,6 +5,7 @@ const app = express();
 app.use( express.json() );
 app.use( express.urlencoded({ extended: true }) );
 
+
 class User {
     constructor() {
         this._id = faker.random.number();
@@ -30,21 +31,23 @@ class Company {
     }
 }
 
-const newUser = new User();
-console.log(newUser);
-
-const newCompany = new Company();
-console.log(newCompany);
-
 app.get("/api/users/new", (req, res) => {
+    let newUser = new User();
     res.json( newUser );
 })
 
 app.get("/api/companies/new", (req, res) => {
+    let newCompany =  new Company();
     res.json( newCompany );
 })
 app.get("/api/user/company", (req, res) => {
+    let newCompany = new Company();
+    let newUser = new User();
     res.json( [{company: newCompany}, {user: newUser}] );
+})
+app.post("/api/user/company", (req, res) => {
+    var datafromResponse = req.body;
+    res.json( datafromResponse );
 })
 
 const server = app.listen(8001, () =>
